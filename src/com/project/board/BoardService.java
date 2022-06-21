@@ -1,24 +1,36 @@
 package com.project.board;
 
+import com.project.file.JsonFile;
+import org.json.simple.JSONObject;
+
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class BoardService {
     public BoardService() {}
+
+    JsonFile jsonFile = new JsonFile();
+    JSONObject jsonObject = new JSONObject();
 
     LinkedHashMap<Integer, Board> listedHashMap = new LinkedHashMap<Integer, Board>();
     LinkedHashMap<Integer, Board> deleteHashMap = new LinkedHashMap<Integer, Board>();
 
     //등록
     public void registered(String userTitle, String userContent, String userName) {
-
         String createdts = ts();
-        listedHashMap.put((listedHashMap.size() + 1), new Board(userTitle, userContent, userName, createdts, "없음", "없음"));
 
-        System.out.println("\n" + userName + "님의 게시글 등록이 완료 되었습니다.\n게시글 고유번호는 " + listedHashMap.size() + "입니다.");
+        HashMap<String, String> registeredHm = new HashMap<String, String>();
+        registeredHm.put("title", userTitle);
+        registeredHm.put("content", userContent);
+        registeredHm.put("name", userName);
+        registeredHm.put("createdTs", createdts);
+        registeredHm.put("updatedTs", "-");
+        registeredHm.put("deletedTs", "-");
+
+        jsonObject.put((jsonObject.size() + 1), registeredHm);
+        jsonFile.jsonWriter(jsonObject.toJSONString());
+
+        System.out.println("\n" + userName + "님의 게시글 등록이 완료 되었습니다.\n게시글 고유번호는 " + jsonObject.size() + "입니다.");
     }
 
     //조회
