@@ -161,6 +161,7 @@ public class BoardService {
 
     //수정
     public void modified(int number) {
+        LinkedHashMap<Integer, Board> listedHashMap = jsonFile.jsonReader();
         Scanner sc = new Scanner(System.in);
 
         if (listedHashMap.get(number) == null) {
@@ -178,10 +179,21 @@ public class BoardService {
                     String newName = sc.nextLine();
 
                     newName = nameCheck(sc, newName);
-                    listedHashMap.get(number).setName(newName);
 
                     String updateTs = ts();
-                    listedHashMap.get(number).setUpdatedTs(updateTs);
+
+                    HashMap<String, String> hmName = new HashMap<String, String>();
+                    hmName.put("title", listedHashMap.get(number).getTitle());
+                    hmName.put("content", listedHashMap.get(number).getContent());
+                    hmName.put("name",  newName);
+                    hmName.put("createdTs", listedHashMap.get(number).getCreatedTs());
+                    hmName.put("updatedTs", updateTs);
+                    hmName.put("deletedTs", "-");
+
+                    jsonObject.put(number, hmName);
+
+                    jsonFile.jsonWriter(jsonObject.toJSONString());
+                    listedHashMap = jsonFile.jsonReader();
 
                     System.out.println(listedHashMap.get(number).getName() + "님의 게시글이 수정되었습니다.\n수정일시 : "  + updateTs);
                     break;
@@ -196,7 +208,19 @@ public class BoardService {
                     listedHashMap.get(number).setTitle(newTitle);
 
                     updateTs = ts();
-                    listedHashMap.get(number).setUpdatedTs(updateTs);
+
+                    HashMap<String, String> hmTitle = new HashMap<String, String>();
+                    hmTitle.put("title", newTitle);
+                    hmTitle.put("content", listedHashMap.get(number).getContent());
+                    hmTitle.put("name",  listedHashMap.get(number).getName());
+                    hmTitle.put("createdTs", listedHashMap.get(number).getCreatedTs());
+                    hmTitle.put("updatedTs", updateTs);
+                    hmTitle.put("deletedTs", "-");
+
+                    jsonObject.put(number, hmTitle);
+
+                    jsonFile.jsonWriter(jsonObject.toJSONString());
+                    listedHashMap = jsonFile.jsonReader();
 
                     System.out.println(listedHashMap.get(number).getName() + "님의 게시글이 수정되었습니다.\n수정일시 : "  + updateTs);
                     break;
@@ -208,10 +232,21 @@ public class BoardService {
                     String newContent = sc.nextLine();
 
                     newContent = contentCheck(sc, newContent);
-                    listedHashMap.get(number).setContent(newContent);
 
                     updateTs = ts();
-                    listedHashMap.get(number).setUpdatedTs(updateTs);
+
+                    HashMap<String, String> hmContent = new HashMap<String, String>();
+                    hmContent.put("title", listedHashMap.get(number).getName());
+                    hmContent.put("content", newContent);
+                    hmContent.put("name",  listedHashMap.get(number).getName());
+                    hmContent.put("createdTs", listedHashMap.get(number).getCreatedTs());
+                    hmContent.put("updatedTs", updateTs);
+                    hmContent.put("deletedTs", "-");
+
+                    jsonObject.put(number, hmContent);
+
+                    jsonFile.jsonWriter(jsonObject.toJSONString());
+                    listedHashMap = jsonFile.jsonReader();
 
                     System.out.println(listedHashMap.get(number).getName() + "님의 게시글이 수정되었습니다.\n수정일시 : "  + updateTs);
                     break;
