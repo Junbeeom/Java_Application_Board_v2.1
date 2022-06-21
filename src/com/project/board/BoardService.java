@@ -111,6 +111,8 @@ public class BoardService {
 
     //검색
     public void searched(String searchValue, int searchIndex) {
+        LinkedHashMap<Integer, Board> listedHashMap = jsonFile.jsonReader();
+
         boolean flag = false;
         switch (searchIndex) {
 
