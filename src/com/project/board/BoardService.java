@@ -6,14 +6,12 @@ import org.json.simple.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+
 public class BoardService {
     public BoardService() {}
 
     JsonFile jsonFile = new JsonFile();
     JSONObject jsonObject = new JSONObject();
-
-    LinkedHashMap<Integer, Board> listedHashMap = new LinkedHashMap<Integer, Board>();
-    LinkedHashMap<Integer, Board> deleteHashMap = new LinkedHashMap<Integer, Board>();
 
     //등록
     public void registered(String userTitle, String userContent, String userName) {
@@ -259,6 +257,7 @@ public class BoardService {
 
     //삭제
     public void deleted(int number) {
+        LinkedHashMap<Integer, Board> listedHashMap = jsonFile.jsonReader();
         Scanner sc = new Scanner(System.in);
 
         if (listedHashMap.get(number) == null) {
@@ -271,15 +270,23 @@ public class BoardService {
                 case 1:
                     String deleteTs = ts();
 
-                    deleteHashMap.put(deleteHashMap.size() + 1, new Board(
-                            listedHashMap.get(number).getTitle(),
-                            listedHashMap.get(number).getContent(),
-                            listedHashMap.get(number).getName(),
-                            listedHashMap.get(number).getCreatedTs(),
-                            listedHashMap.get(number).getUpdatedTs(),
-                            deleteTs));
+                    HashMap<String, String> registeredHm = new HashMap<String, String>();
+                    registeredHm.put("title", listedHashMap.get(number).getTitle());
+                    registeredHm.put("content", listedHashMap.get(number).getContent());
+                    registeredHm.put("name", listedHashMap.get(number).getName());
+                    registeredHm.put("createdTs",  listedHashMap.get(number).getCreatedTs());
+                    registeredHm.put("updatedTs", listedHashMap.get(number).getUpdatedTs());
+                    registeredHm.put("deletedTs", deleteTs);
+
+                    JSONObject deleteData = new JSONObject();
+                    deleteData.put(number, registeredHm);
+                    jsonFile.deleteJsonWriter(deleteData.toJSONString());
+
+                    jsonObject.remove(number);
+                    jsonFile.jsonWriter(jsonObject.toJSONString());
 
                     System.out.println(listedHashMap.get(number).getName() + "님의 게시글이 삭제되었습니다.\n삭제일시 : "  + deleteTs);
+
                     listedHashMap.remove(number);
                     break;
 
