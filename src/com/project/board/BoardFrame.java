@@ -10,7 +10,7 @@ public class BoardFrame {
 
         boolean flag = true;
 
-        while (flag) {
+        while(flag) {
             System.out.println("=================");
             System.out.println("1.게시글 작성하기");
             System.out.println("2.게시글 삭제하기");
@@ -20,7 +20,7 @@ public class BoardFrame {
             System.out.println("6.    종료");
             System.out.println("=================");
 
-            switch (sc.nextInt()) {
+            switch(sc.nextInt()) {
                 //등록하기
                 case 1:
                     System.out.println("작성자 이름을 입력하세요 : ");
@@ -51,7 +51,7 @@ public class BoardFrame {
                 case 3:
                     System.out.println("작성자로 검색 1번\n제목으로 검색 2번\n내용으로 검색 3번\n취소 아무키 입력");
                     int choice = sc.nextInt();
-                    switch (choice) {
+                    switch(choice) {
                         case 1:
                             System.out.println("등록된 작성자의 이름을 입력하세요");
                             userName = sc.next();

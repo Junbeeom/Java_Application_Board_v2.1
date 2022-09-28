@@ -43,7 +43,7 @@ public class BoardService {
         System.out.println("현재 페이지는 '1page'입니다.\n등록된 게시글의 수는 총 " + listedHashMap.size() + " 개 입니다. ");
 
         //조회 메소드 실행시 출력되는 기본 list
-        for (int key : listedHashMap.keySet()) {
+        for(int key : listedHashMap.keySet()) {
             listPrint(key);
             cnt++;
 
@@ -53,13 +53,13 @@ public class BoardService {
         }
 
         //게시글이 4개부터 실행되는 로직
-        if (listedHashMap.size() > limit) {
+        if(listedHashMap.size() > limit) {
             System.out.println("페이지 이동은 1번, 메뉴로 이동는 2번");
             int switchNumber = sc.nextInt();
 
-            switch (switchNumber) {
+            switch(switchNumber) {
                 case 1:
-                    System.out.print("이동 가능한 페이지 개수는 " + listedHashMap.size() / limit + "개 입니다. \n이동하실 page를 입력하세요\n ");
+                    System.out.print("이동 가능한 페이지 개수는 " + (listedHashMap.size() / limit) + "개 입니다. \n이동하실 page를 입력하세요\n ");
                     int page = sc.nextInt();
 
                     offset = limit * page - limit;
@@ -68,7 +68,7 @@ public class BoardService {
                     System.out.println("================================");
                     System.out.println("현재 페이지는 " + page + "입니다");
 
-                    for (int key : listedHashMap.keySet()) {
+                    for(int key : listedHashMap.keySet()) {
                         if(cnt > offset && cnt <= limit * page) {
                             listPrint(key);
                         }
@@ -76,19 +76,18 @@ public class BoardService {
                     }
 
                     //추가 페이지 이동 여부 확인
-                    while (true) {
+                    while(true) {
                         System.out.println("추가적인 페이지이동 1번, 취소2번");
 
-                        if (sc.nextInt() == 1) {
+                        if(sc.nextInt() == 1) {
                             System.out.print("이동 가능한 페이지 개수는 " + listedHashMap.size() / limit + "개 입니다. \n이동하실 page를 입력하세요\n ");
                             page = sc.nextInt();
-
                             offset = limit * page - limit;
                             cnt = 1;
                             System.out.println("================================");
                             System.out.println("현재 페이지는 " + page + "입니다");
 
-                            for (int key : listedHashMap.keySet()) {
+                            for(int key : listedHashMap.keySet()) {
                                 if(cnt > offset && cnt <= limit * page) {
                                     listPrint(key);
                                 }
@@ -112,43 +111,43 @@ public class BoardService {
         LinkedHashMap<Integer, Board> listedHashMap = jsonFile.jsonReader();
 
         boolean flag = false;
-        switch (searchIndex) {
+        switch(searchIndex) {
 
             //이름으로 검색
             case 1:
-                for (int key : listedHashMap.keySet()) {
-                    if (listedHashMap.get(key).getName().contains(searchValue)) {
+                for(int key : listedHashMap.keySet()) {
+                    if(listedHashMap.get(key).getName().contains(searchValue)) {
                         listPrint(key);
                         flag = true;
                     }
                 }
-                if (!flag) {
+                if(!flag) {
                     System.out.println("등록된 작성자가 없습니다.");
                 }
                 break;
 
             //제목으로 검색
             case 2:
-                for (int key : listedHashMap.keySet()) {
-                    if (listedHashMap.get(key).getTitle().contains(searchValue)) {
+                for(int key : listedHashMap.keySet()) {
+                    if(listedHashMap.get(key).getTitle().contains(searchValue)) {
                         listPrint(key);
                         flag = true;
                     }
                 }
-                if (!flag) {
+                if(!flag) {
                     System.out.println("등록된 제목이 없습니다.");
                 }
                 break;
 
             //내용으로 검색
             case 3:
-                for (int key : listedHashMap.keySet()) {
-                    if (listedHashMap.get(key).getContent().contains(searchValue)) {
+                for(int key : listedHashMap.keySet()) {
+                    if(listedHashMap.get(key).getContent().contains(searchValue)) {
                         listPrint(key);
                         flag = true;
                     }
                 }
-                if (!flag) {
+                if(!flag) {
                     System.out.println("등록된 내용이 없습니다.");
                 }
                 break;
@@ -162,13 +161,13 @@ public class BoardService {
         LinkedHashMap<Integer, Board> listedHashMap = jsonFile.jsonReader();
         Scanner sc = new Scanner(System.in);
 
-        if (listedHashMap.get(number) == null) {
+        if(listedHashMap.get(number) == null) {
             System.out.println("존재하지 않는 게시글입니다");
         } else {
             System.out.println("1.이름 수정\n2.제목 수정\n3.내용 수정\n4.취소는 아무키 입력");
 
             int modifiedIndex = sc.nextInt();
-            switch (modifiedIndex) {
+            switch(modifiedIndex) {
 
                 //이름 수정
                 case 1:
@@ -260,13 +259,13 @@ public class BoardService {
         LinkedHashMap<Integer, Board> listedHashMap = jsonFile.jsonReader();
         Scanner sc = new Scanner(System.in);
 
-        if (listedHashMap.get(number) == null) {
+        if(listedHashMap.get(number) == null) {
             System.out.println("존재하지 않는 게시글입니다");
         } else {
             System.out.println("삭제 1번, 취소 2번");
 
             int deletedIndex = sc.nextInt();
-            switch (deletedIndex) {
+            switch(deletedIndex) {
                 case 1:
                     String deleteTs = ts();
 
@@ -299,7 +298,7 @@ public class BoardService {
 
     //제목 유효성 검증
     public String titleCheck (Scanner sc, String title){
-        if (title.length() <= 12) {
+        if(title.length() <= 12) {
             return title;
         } else {
             System.out.println("제목은 12글자 이하로 입력해야 합니다.\n다시 입력하세요.");
@@ -312,7 +311,7 @@ public class BoardService {
     public String nameCheck (Scanner sc, String name){
         String isKoreanCheck = "^[가-힣]*$";
         String isAlaphaCheck = "^[a-zA-Z]*$";
-        if (name.matches(isKoreanCheck) || name.matches(isAlaphaCheck)) {
+        if(name.matches(isKoreanCheck) || name.matches(isAlaphaCheck)) {
             return name;
         } else {
             System.out.println("올바른 형식을 입력하세요\n한글 및 영어만 입력하세요.");
@@ -324,7 +323,7 @@ public class BoardService {
 
     //내용 유효성 검증
     public String contentCheck (Scanner sc, String content){
-        if (content.length() <= 200) {
+        if(content.length() <= 200) {
             return content;
         } else {
             System.out.println("내용은 200자 이하로 작성할 수 있습니다.\n글자수에 맞게 다시 작성하세요");

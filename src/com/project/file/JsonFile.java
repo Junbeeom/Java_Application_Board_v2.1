@@ -17,6 +17,7 @@ import java.util.LinkedHashMap;
 public class JsonFile {
     public JsonFile() {}
 
+
     //json Data JsonFile to write
     public void jsonWriter(String jsonData) {
 
@@ -53,7 +54,7 @@ public class JsonFile {
 
             int cnt = 1;
 
-            while (itr.hasNext()) {
+            while(itr.hasNext()) {
                 HashMap<String, String> tmpJson = (HashMap<String, String>) jsonObject.get(itr.next());
 
                 listedHashMap.put(cnt, new Board(tmpJson.get("title"), tmpJson.get("content"), tmpJson.get("name"), tmpJson.get("createdTs"), tmpJson.get("updatedTs"), tmpJson.get("deletedTs")));
