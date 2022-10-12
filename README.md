@@ -212,7 +212,7 @@
 
 ### 7.2 Java_Application_verson 2.1
 1. 로컬 메모리에서 Data를 관리하면 컴파일 되는 시점마다 Data가 reset 되었다. File Class는 파일 생성 및 삭제 기능을 제공하고 있으며, 이를 활용하여 Data를 관리하고 싶었다. 
-(.txt) file에서 Data를 관리할 때 효율적으로 관리하고자 Data 형태를 고민하였으며, 가장 적합해보이는 JSON Data Format으로 관리하게 되었다. 사용자가 등록한 게시글의 Data는 직렬화(serialize 영어로적을지 한글로 할지 택1)하여 File에 저장되도록 하였으며, List를 불러올 땐 직렬화된 데이터를 Parsing하여 HashMap 자료구조에 담아 출력하도록 구현하였다. 
+(.txt) file에서 Data를 관리할 때 효율적으로 관리하고자 Data 형태를 고민하였으며, 가장 적합해보이는 JSON Data Format으로 관리하게 되었다. 사용자가 등록한 게시글의 Data는 serialize하여 File에 저장되도록 하였으며, List를 불러올 땐 직렬화된 데이터를 Parsing하여 HashMap 자료구조에 담아 출력하도록 구현하였다. 
 
 
 
